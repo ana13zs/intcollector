@@ -132,8 +132,8 @@ class PTCollector(object):
                              ("dst_port", ct.c_ushort),
                              ("ip_proto", ct.c_ushort),
 
-                             # ("pkt_cnt", ct.c_uint64),
-                             # ("byte_cnt", ct.c_uint64),
+                             #("pkt_cnt", ct.c_uint64),
+                             #("byte_cnt", ct.c_uint64),
 
                              ("num_INT_hop", ct.c_ubyte),
 
@@ -194,7 +194,8 @@ class PTCollector(object):
                             event.dst_port, event.ip_proto)
 
                 # delete all old one
-                if self.flow_paths.has_key(flow_id):
+                #if self.flow_paths.has_key(flow_id):
+                if flow_id in self.flow_paths:
                     for sw_id in self.flow_paths[flow_id]:
                         self.g_flow_hop_latency.remove(event.src_ip, event.dst_ip, \
                                                       event.src_port, event.dst_port,\

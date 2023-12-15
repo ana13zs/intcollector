@@ -2,6 +2,11 @@ from __future__ import print_function
 import argparse
 from PTCollector import PTCollector
 from prometheus_client import start_http_server
+
+
+#from signal import signal, SIGPIPE, SIG_DFL   
+#signal(SIGPIPE,SIG_DFL)
+
 if __name__ == "__main__":
 
     parser = argparse.ArgumentParser(description='Prometheus client.')
@@ -11,7 +16,8 @@ if __name__ == "__main__":
         help="MAX INT HOP")
     parser.add_argument("-i", "--int_port", default=54321, type=int,
         help="Destination port of INT Telemetry reports")
-    parser.add_argument("-d", "--debug_mode", default=0, type=int,
+    #parser.add_argument("-d", "--debug_mode", default=0, type=int,
+    parser.add_argument("-d", "--debug_mode", default=1, type=int,
         help="set to 1 to print event")
     args = parser.parse_args()
 
@@ -23,7 +29,10 @@ if __name__ == "__main__":
 
     collector.open_events()
 
-    start_http_server(8000)
+    port = 8001
+    start_http_server(port)
+    print(f"HTTP server started ({port})")
+
 
     try:
         print("eBPF progs Loaded")
